@@ -1,65 +1,18 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <title>Apri Gestione Ordini</title>
-    <style>
-        .btn-ordini {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .btn-ordini:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
-
-    <button class="btn-ordini" onclick="apriGestioneOrdini()">
-        Apri Gestione Ordini Clienti
-    </button>
-
-    <script>
-        function apriGestioneOrdini() {
-            try {
-                // Metodo A: Se il framework espone "dueApp" o il router globalmente
-                if (window.dueApp && window.dueApp.state) {
-                    // Esempio ipotetico basato sul nome dello script "dueApp.state.js"
-                    window.dueApp.state.go('ORCLI010'); 
-                    return;
-                }
-
-                // Metodo B: Recupero del servizio tramite l'iniettore di AngularJS
-                // Nota: sostituisci 'body' con l'elemento che ha l'attributo ng-app se questo fallisce
-                var injector = angular.element(document.querySelector('[ng-app]') || document.body).injector();
-                
-                if (injector) {
-                    // Tentiamo di recuperare il workareaService visto nei log
-                    var workareaService = injector.get('workareaService');
-                    if (workareaService && typeof workareaService.openProgram === 'function') {
-                        // Il nome della funzione (es. openProgram, startProgram, openWa) dipende dal framework
-                        workareaService.openProgram('ORCLI010');
-                        return;
-                    }
-                    
-                    // Alternativa: se usa il $state di ui-router o $location di Angular
-                    var $state = injector.get('$state');
-                    if ($state) {
-                        $state.go('ORCLI010'); // o lo stato corrispondente
-                        return;
-                    }
-                }
-            } catch (error) {
-                console.error("Impossibile aprire la funzione automaticamente:", error);
-                alert("Errore nell'apertura della gestione ordini. Verifica la console.");
-            }
-        }
-    </script>
-
-</body>
-</html>
+dueApp.main.js?v=1.2.10.3:132 ON FOCUSA
+workareaService.js?v=1.2.10.3:440 Setting wa 1 as active
+dueApp.state.js?v=1.2.10.3:28 VERSIONED: app/modules/directiveModule/gfPanelset/gfPanelset.html?v=1.2.10.3
+dueApp.state.js?v=1.2.10.3:28 VERSIONED: app/modules/directiveModule/gfPanelset/gfPanel.html?v=1.2.10.3
+dueApp.state.js?v=1.2.10.3:28 VERSIONED: app/modules/directiveModule/iboxTools/ibox_tools_full_screen.html?v=1.2.10.3
+dueApp.state.js?v=1.2.10.3:28 VERSIONED: app/modules/directiveModule/gfStar4/gfStar4Title.template.htm?v=1.2.10.3
+dueApp.state.js?v=1.2.10.3:28 VERSIONED: app/modules/directiveModule/gfStar4/gfStar4.template.htm?v=1.2.10.3
+angular.min.1.7.8.js:127 ALLOCATE wa.localDataModelMap[ORCLI010orcli010r.txt] in waId: ORCLI010orcli010r.txt
+gfStar4.js?v=1.2.10.3:2299 $onInit gfStar4 m {$id: 22564, $$childTail: null, $$childHead: null, $$prevSibling: null, $$nextSibling: null, …}
+gfStar4.js?v=1.2.10.3:235 WA {index: 1, id: 'ORCLI010orcli010r.txt', waId: 'ORCLI010', title: 'Gestione ordini', menuItem: {…}, …}
+directives.js?v=1.2.10.3:810 hasScroll {type: 'resize', timeStamp: 1780494193287, jQuery311022305126785354568: true, isTrigger: 3, namespace: '', …}
+gfStar4.js?v=1.2.10.3:2640 startProgram:  {data: {…}, status: 200, config: {…}, statusText: 'OK', headers: ƒ, …}
+gfStar4.js?v=1.2.10.3:744 gfStar4.applyLayout() JSON:  {LayoutInfo: {…}, Layout: {…}, Metadata: {…}, fieldExtensions: {…}, ncs: {…}}
+gfStar4.js?v=1.2.10.3:748 gfStar4.applyLayout() timeout: 
+gfStar4.js?v=1.2.10.3:3250 FOCUS  #OC0101 .editabled #TIDO
+gfStar4.js?v=1.2.10.3:3257 FOCUS on #TIDO
+gfStar4.js?v=1.2.10.3:4170 Timeout impostato:  10
+angular.min.1.7.8.js:127 readLayoutsInfo {data: {…}, status: 200, config: {…}, statusText: 'OK', headers: ƒ, …}
