@@ -1,29 +1,85 @@
-function apriGestioneOrdiniDaIframe() {
-    // Accedi alla finestra principale dell'ERP
-    const mainWindow = window.parent;
-    
-    if (mainWindow && mainWindow.angular) {
-        const appElement = mainWindow.document.querySelector('[ng-app]') || mainWindow.document.body;
-        const $injector = mainWindow.angular.element(appElement).injector();
-        
-        if ($injector) {
-            const workareaService = $injector.get('workareaService');
-            
-            // Parametri ricavati dal tuo log alla riga: 
-            // WA {index: 1, id: 'ORCLI010orcli010r.txt', waId: 'ORCLI010', title: 'Gestione ordini'...}
-            const menuItem = {
-                id: 'ORCLI010orcli010r.txt',
-                waId: 'ORCLI010',
-                title: 'Gestione ordini'
-            };
-            
-            // Chiamata al servizio del modulo principale
-            mainWindow.angular.element(appElement).scope().$apply(function() {
-                // Sostituisci '.open' con il metodo effettivo di workareaService se fallisce
-                workareaService.open(menuItem); 
-            });
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Link ERP Interno</title>
+    <style>
+        /* Un minimo di stile per il pulsante, personalizzalo come preferisci */
+        .btn-erp {
+            background-color: #1ab394; /* Colore tipico dei temi Inspinia/Angular ERP */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
         }
-    } else {
-        console.error("Impossibile accedere al framework principale.");
+        .btn-erp:hover {
+            background-color: #18a689;
+        }
+    </style>
+</head>
+<body>
+
+    <button type="button" class="btn-erp" onclick="apriGestioneOrdiniDaIframe()">
+        Apri Gestione Ordini
+    </button>
+
+    <script>
+    function apriGestioneOrdiniDaIframe() {
+        // Accedi alla finestra principale dell'ERP
+        const mainWindow = window.parent;
+        
+        if (mainWindow && mainWindow.angular) {
+            // Cerca l'elemento radice dell'applicazione Angular
+            const appElement = mainWindow.document.querySelector('[ng-app]') || mainWindow.document.body;
+            const $injector = mainWindow.angular.element(appElement).injector();
+            
+            if ($injector) {
+                const workareaService = $injector.get('workareaService');
+                
+                // Dati estratti dai log del tuo ERP
+                const menuItem = {
+                    id: 'ORCLI010orcli010r.txt',
+                    waId: 'ORCLI010',
+                    title: 'Gestione ordini',
+                    menuItem: {
+                        id: 'ORCLI010orcli010r.txt',
+                        waId: 'ORCLI010',
+                        title: 'Gestione ordini'
+                    }
+                };
+                
+                // Eseguiamo l'azione dentro il ciclo digest di Angular ($apply)
+                mainWindow.angular.element(appElement).scope().$apply(function() {
+                    try {
+                        // Proviamo in sequenza i metodi più probabili dei framework gestionali
+                        if (typeof workareaService.openProgram === 'function') {
+                            workareaService.openProgram(menuItem);
+                        } else if (typeof workareaService.open === 'function') {
+                            workareaService.open(menuItem); 
+                        } else if (typeof workareaService.addWorkarea === 'function') {
+                            workareaService.addWorkarea(menuItem);
+                        } else if (typeof workareaService.add === 'function') {
+                            workareaService.add(menuItem);
+                        } else {
+                            // Se falliscono tutti, ti mostra in console (F12) i metodi reali del servizio
+                            console.warn("Metodo di apertura non identificato. Funzioni disponibili in workareaService:", Object.keys(workareaService));
+                        }
+                    } catch (error) {
+                        console.error("Errore durante l'esecuzione su workareaService:", error);
+                    }
+                });
+            } else {
+                console.error("Impossibile recuperare l'injector di AngularJS.");
+            }
+        } else {
+            console.error("Impossibile accedere al framework principale o AngularJS non è presente nel parent.");
+        }
     }
-}
+    </script>
+
+</body>
+</html>
