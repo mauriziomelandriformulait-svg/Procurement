@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Apri Gestione Ordini</title>
+    <style>
+        .btn-ordini {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn-ordini:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="btn-ordini" onclick="apriGestioneOrdini()">
+        Apri Gestione Ordini Clienti
+    </button>
+
+    <script>
+        function apriGestioneOrdini() {
+            try {
+                // Metodo A: Se il framework espone "dueApp" o il router globalmente
+                if (window.dueApp && window.dueApp.state) {
+                    // Esempio ipotetico basato sul nome dello script "dueApp.state.js"
+                    window.dueApp.state.go('ORCLI010'); 
+                    return;
+                }
+
+                // Metodo B: Recupero del servizio tramite l'iniettore di AngularJS
+                // Nota: sostituisci 'body' con l'elemento che ha l'attributo ng-app se questo fallisce
+                var injector = angular.element(document.querySelector('[ng-app]') || document.body).injector();
+                
+                if (injector) {
+                    // Tentiamo di recuperare il workareaService visto nei log
+                    var workareaService = injector.get('workareaService');
+                    if (workareaService && typeof workareaService.openProgram === 'function') {
+                        // Il nome della funzione (es. openProgram, startProgram, openWa) dipende dal framework
+                        workareaService.openProgram('ORCLI010');
+                        return;
+                    }
+                    
+                    // Alternativa: se usa il $state di ui-router o $location di Angular
+                    var $state = injector.get('$state');
+                    if ($state) {
+                        $state.go('ORCLI010'); // o lo stato corrispondente
+                        return;
+                    }
+                }
+            } catch (error) {
+                console.error("Impossibile aprire la funzione automaticamente:", error);
+                alert("Errore nell'apertura della gestione ordini. Verifica la console.");
+            }
+        }
+    </script>
+
+</body>
+</html>
