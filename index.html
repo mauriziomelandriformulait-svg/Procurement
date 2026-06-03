@@ -1,18 +1,29 @@
-dueApp.main.js?v=1.2.10.3:132 ON FOCUSA
-workareaService.js?v=1.2.10.3:440 Setting wa 1 as active
-dueApp.state.js?v=1.2.10.3:28 VERSIONED: app/modules/directiveModule/gfPanelset/gfPanelset.html?v=1.2.10.3
-dueApp.state.js?v=1.2.10.3:28 VERSIONED: app/modules/directiveModule/gfPanelset/gfPanel.html?v=1.2.10.3
-dueApp.state.js?v=1.2.10.3:28 VERSIONED: app/modules/directiveModule/iboxTools/ibox_tools_full_screen.html?v=1.2.10.3
-dueApp.state.js?v=1.2.10.3:28 VERSIONED: app/modules/directiveModule/gfStar4/gfStar4Title.template.htm?v=1.2.10.3
-dueApp.state.js?v=1.2.10.3:28 VERSIONED: app/modules/directiveModule/gfStar4/gfStar4.template.htm?v=1.2.10.3
-angular.min.1.7.8.js:127 ALLOCATE wa.localDataModelMap[ORCLI010orcli010r.txt] in waId: ORCLI010orcli010r.txt
-gfStar4.js?v=1.2.10.3:2299 $onInit gfStar4 m {$id: 22564, $$childTail: null, $$childHead: null, $$prevSibling: null, $$nextSibling: null, …}
-gfStar4.js?v=1.2.10.3:235 WA {index: 1, id: 'ORCLI010orcli010r.txt', waId: 'ORCLI010', title: 'Gestione ordini', menuItem: {…}, …}
-directives.js?v=1.2.10.3:810 hasScroll {type: 'resize', timeStamp: 1780494193287, jQuery311022305126785354568: true, isTrigger: 3, namespace: '', …}
-gfStar4.js?v=1.2.10.3:2640 startProgram:  {data: {…}, status: 200, config: {…}, statusText: 'OK', headers: ƒ, …}
-gfStar4.js?v=1.2.10.3:744 gfStar4.applyLayout() JSON:  {LayoutInfo: {…}, Layout: {…}, Metadata: {…}, fieldExtensions: {…}, ncs: {…}}
-gfStar4.js?v=1.2.10.3:748 gfStar4.applyLayout() timeout: 
-gfStar4.js?v=1.2.10.3:3250 FOCUS  #OC0101 .editabled #TIDO
-gfStar4.js?v=1.2.10.3:3257 FOCUS on #TIDO
-gfStar4.js?v=1.2.10.3:4170 Timeout impostato:  10
-angular.min.1.7.8.js:127 readLayoutsInfo {data: {…}, status: 200, config: {…}, statusText: 'OK', headers: ƒ, …}
+function apriGestioneOrdiniDaIframe() {
+    // Accedi alla finestra principale dell'ERP
+    const mainWindow = window.parent;
+    
+    if (mainWindow && mainWindow.angular) {
+        const appElement = mainWindow.document.querySelector('[ng-app]') || mainWindow.document.body;
+        const $injector = mainWindow.angular.element(appElement).injector();
+        
+        if ($injector) {
+            const workareaService = $injector.get('workareaService');
+            
+            // Parametri ricavati dal tuo log alla riga: 
+            // WA {index: 1, id: 'ORCLI010orcli010r.txt', waId: 'ORCLI010', title: 'Gestione ordini'...}
+            const menuItem = {
+                id: 'ORCLI010orcli010r.txt',
+                waId: 'ORCLI010',
+                title: 'Gestione ordini'
+            };
+            
+            // Chiamata al servizio del modulo principale
+            mainWindow.angular.element(appElement).scope().$apply(function() {
+                // Sostituisci '.open' con il metodo effettivo di workareaService se fallisce
+                workareaService.open(menuItem); 
+            });
+        }
+    } else {
+        console.error("Impossibile accedere al framework principale.");
+    }
+}
