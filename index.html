@@ -22,51 +22,37 @@
 </head>
 <body>
 
-    <button type="button" class="btn-erp" onclick="navigaOrdinePrincipale()">
+    <button type="button" class="btn-erp" onclick="inviaMessaggioNavigazione()">
         Apri Ordine Cliente #1
     </button>
 
     <script>
-    function navigaOrdinePrincipale() {
+    function inviaMessaggioNavigazione() {
         const percorsoTarget = "/home/workArea/salesOrder/1";
         
-        // STRATEGIA 1: postMessage (Il modo standard in Angular moderno per comunicare dagli iframe)
-        // Invia un messaggio formattato sia come stringa che come oggetto (molti ERP intercettano questo)
-        try {
-            console.log("Tentativo 1: Invio postMessage al parent...");
-            const messaggio = {
-                action: 'navigate',
-                url: percorsoTarget,
-                route: percorsoTarget,
-                type: 'ROUTER_NAVIGATION'
-            };
-            
-            window.parent.postMessage(messaggio, '*');
-            window.parent.postMessage(JSON.stringify(messaggio), '*');
-        } catch (e) {
-            console.warn("Errore durante il postMessage:", e);
-        }
+        // Strutturiamo il payload in diversi formati standard usati dagli ERP sul mercato
+        // per massimizzare la possibilità che l'ascoltatore dell'ERP riconosca il comando.
+        const payloadOggetto = {
+            type: 'ROUTER_NAVIGATION',
+            action: 'navigate',
+            url: percorsoTarget,
+            route: percorsoTarget,
+            path: percorsoTarget,
+            target: '_parent'
+        };
 
-        // STRATEGIA 2: Forzatura tramite window.open sul target '_parent'
-        // Se l'ERP usa i percorsi con '#' nell'URL principale, questo ricarica/sposta la finestra madre
+        console.log("Invio comando di navigazione tramite postMessage sichero...");
+
         try {
-            console.log("Tentativo 2: Forzatura tramite window.open su _parent...");
+            // 1. Invia come oggetto nativo (Standard HTML5)
+            window.parent.postMessage(payloadOggetto, '*');
             
-            // Recuperiamo l'origine dell'ERP (es: https://diapdemo.formula.it:8282)
-            const urlCompleto = window.parent.location.origin + "/due/#" + percorsoTarget;
+            // 2. Invia come stringa JSON (Molti vecchi ricevitori o customizzazioni leggono solo stringhe)
+            window.parent.postMessage(JSON.stringify(payloadOggetto), '*');
             
-            // Forza la finestra principale a cambiare indirizzo direttamente
-            window.open(urlCompleto, '_parent');
+            console.log("Messaggi inviati al parent. Controlla se l'ERP reagisce.");
         } catch (e) {
-            console.error("Errore durante la navigazione diretta _parent. Potrebbe esserci un blocco di Cross-Origin (CORS):", e);
-            
-            // Fallback estremo se la sicurezza del browser blocca il punto precedente:
-            // Prova a cambiare l'intera location del parent
-            try {
-                window.parent.location.href = window.parent.location.origin + "/due/#" + percorsoTarget;
-            } catch (err) {
-                console.error("Anche il fallback estremo è stato bloccato dal browser:", err);
-            }
+            console.error("Errore durante l'invio del postMessage (anomalo):", e);
         }
     }
     </script>
