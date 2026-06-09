@@ -30,29 +30,24 @@
     function inviaMessaggioNavigazione() {
         const percorsoTarget = "/home/workArea/salesOrder/1";
         
-        // Strutturiamo il payload in diversi formati standard usati dagli ERP sul mercato
-        // per massimizzare la possibilità che l'ascoltatore dell'ERP riconosca il comando.
-        const payloadOggetto = {
+        const payload = {
             type: 'ROUTER_NAVIGATION',
             action: 'navigate',
             url: percorsoTarget,
-            route: percorsoTarget,
-            path: percorsoTarget,
-            target: '_parent'
+            route: percorsoTarget
         };
 
-        console.log("Invio comando di navigazione tramite postMessage sichero...");
+        console.log("Invio comando via postMessage...");
 
         try {
-            // 1. Invia come oggetto nativo (Standard HTML5)
-            window.parent.postMessage(payloadOggetto, '*');
+            // Invia l'oggetto nativo
+            window.parent.postMessage(payload, '*');
+            // Invia come stringa JSON (per compatibilità con vecchi ricevitori)
+            window.parent.postMessage(JSON.stringify(payload), '*');
             
-            // 2. Invia come stringa JSON (Molti vecchi ricevitori o customizzazioni leggono solo stringhe)
-            window.parent.postMessage(JSON.stringify(payloadOggetto), '*');
-            
-            console.log("Messaggi inviati al parent. Controlla se l'ERP reagisce.");
+            console.log("Messaggio inviato al parent senza blocchi di sicurezza.");
         } catch (e) {
-            console.error("Errore durante l'invio del postMessage (anomalo):", e);
+            console.error("Errore nell'invio:", e);
         }
     }
     </script>
