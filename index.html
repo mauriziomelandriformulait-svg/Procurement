@@ -10,7 +10,7 @@
             background-color: #f3f3f4;
             color: #676a6c;
             margin: 0;
-            padding: 20px;
+            padding: 40px 20px;
         }
 
         h1 {
@@ -22,97 +22,100 @@
             margin-bottom: 40px;
         }
 
-        .flow-container {
-            max-width: 900px;
+        /* Container del flusso orizzontale */
+        .horizontal-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1300px;
             margin: 0 auto;
-            position: relative;
-        }
-
-        /* Linea verticale di collegamento per il flusso */
-        .flow-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 40px;
-            width: 4px;
-            background: #cbd5e1;
-            z-index: 1;
-        }
-
-        .flow-step {
-            position: relative;
-            margin-bottom: 30px;
+            padding: 30px 20px;
             background: #ffffff;
             border-radius: 8px;
-            padding: 20px 20px 20px 80px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            z-index: 2;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            overflow-x: auto; /* Attiva lo scroll se lo schermo è troppo piccolo */
+            gap: 10px;
         }
 
-        /* Cerchio numerato del flusso */
-        .step-number {
-            position: absolute;
-            left: 20px;
-            top: 22px;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: #2f4050;
-            color: #ffffff;
+        /* Scheda del singolo step */
+        .flow-card {
+            flex: 1;
+            min-width: 160px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 20px 15px;
             text-align: center;
-            line-height: 44px;
-            font-weight: bold;
-            font-size: 18px;
-            z-index: 3;
-        }
-
-        .step-header {
             display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
+            min-height: 200px;
+            box-sizing: border-box;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .flow-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        /* Icone ed elementi testuali delle schede */
+        .card-icon {
+            font-size: 32px;
             margin-bottom: 10px;
-            gap: 15px;
         }
 
-        .step-title {
-            font-size: 18px;
+        .card-title {
+            font-size: 14px;
             font-weight: 700;
-            color: #1c84c6;
-            margin: 0;
+            color: #2f4050;
+            margin: 5px 0;
+            line-height: 1.3;
         }
 
-        .step-actor {
-            font-size: 12px;
-            background: #e7eaec;
-            padding: 4px 10px;
+        .card-actor {
+            font-size: 11px;
+            color: #718096;
+            margin: 0 0 15px 0;
+            font-style: italic;
+            line-height: 1.2;
+        }
+
+        /* Frecce di collegamento */
+        .flow-arrow {
+            font-size: 24px;
+            color: #cbd5e1;
+            user-select: none;
+            animation: pulse 2s infinite;
+        }
+
+        /* Badge per passaggi senza azione diretta */
+        .badge-info {
+            font-size: 11px;
+            background-color: #e2e8f0;
+            color: #4a5568;
+            padding: 5px 10px;
             border-radius: 4px;
             font-weight: 600;
+            margin-top: auto;
         }
 
-        .step-details {
-            font-size: 14px;
-            line-height: 1.6;
-            margin: 0;
-        }
-
-        .step-details ul {
-            margin: 5px 0 0 0;
-            padding-left: 20px;
-        }
-
+        /* Pulsanti ERP */
         .btn-erp {
             background-color: #1ab394;
             color: white;
             border: none;
-            padding: 10px 20px;
-            font-size: 13px;
+            padding: 8px 12px;
+            font-size: 11px;
             font-weight: bold;
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.2s, transform 0.1s;
             box-shadow: 0 2px 3px rgba(26, 179, 148, 0.2);
+            width: 100%;
+            margin-top: auto; /* Spinge il bottone sempre in fondo alla card */
+            box-sizing: border-box;
         }
 
         .btn-erp:hover {
@@ -122,12 +125,12 @@
         .btn-erp:active {
             transform: scale(0.98);
         }
-        
-        .no-action {
-            color: #7f8c8d;
-            font-style: italic;
-            font-size: 13px;
-            padding: 10px 0;
+
+        /* Animazione per le frecce */
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
         }
     </style>
 </head>
@@ -135,107 +138,64 @@
 
     <h1>Procurement</h1>
 
-    <div class="flow-container">
+    <div class="horizontal-flow">
 
-        <div class="flow-step">
-            <div class="step-number">1</div>
-            <div class="step-header">
-                <div>
-                    <h3 class="step-title">Emissione della RdA (Richiesta di Acquisto)</h3>
-                </div>
-                <span class="step-actor">Utente aziendale / Reparto richiedente</span>
-            </div>
-            <p class="step-details">
-                Viene identificato un bisogno (materiali, servizi, software). Il richiedente compila la RdA nel sistema gestionale (ERP) specificando quantità, descrizione, codici e data di consegna desiderata.
-            </p>
-            <div style="margin-top: 15px;">
-                <button type="button" class="btn-erp" onclick="inviaMessaggioNavigazione('/home/workArea/purchaseRequestsAppl/1')">
-                    Crea RDA
-                </button>
-            </div>
+        <div class="flow-card">
+            <div class="card-icon">📝</div>
+            <h3 class="card-title">1. Emissione RdA</h3>
+            <p class="card-actor">Utente Richiedente</p>
+            <button type="button" class="btn-erp" onclick="inviaMessaggioNavigazione('/home/workArea/purchaseRequestsAppl/1')">
+                Crea RDA
+            </button>
         </div>
 
-        <div class="flow-step">
-            <div class="step-number">2</div>
-            <div class="step-header">
-                <div>
-                    <h3 class="step-title">Approvazione della RdA</h3>
-                </div>
-                <span class="step-actor">Responsabile di reparto / Controllo di gestione</span>
-            </div>
-            <p class="step-details">
-                La RdA viene sottoposta a un flusso di approvazione (workflow). Viene verificata la conformità al budget disponibile. Se approvata, la RdA diventa visibile all'ufficio acquisti (Buyer).
-            </p>
-            <div style="margin-top: 15px;">
-                <button type="button" class="btn-erp" onclick="inviaMessaggioNavigazione('/home/desktop/CP-Ufficio%20Acquisti')">
-                    Approva RdA
-                </button>
-            </div>
+        <div class="flow-arrow">➡️</div>
+
+        <div class="flow-card">
+            <div class="card-icon">✅</div>
+            <h3 class="card-title">2. Approvazione</h3>
+            <p class="card-actor">Responsabile / Budget</p>
+            <button type="button" class="btn-erp" onclick="inviaMessaggioNavigazione('/home/desktop/CP-Ufficio%20Acquisti')">
+                Approva RdA
+            </button>
         </div>
 
-        <div class="flow-step">
-            <div class="step-number">3</div>
-            <div class="step-header">
-                <div>
-                    <h3 class="step-title">Sourcing e Gestione Fornitori</h3>
-                </div>
-                <span class="step-actor">Buyer (Ufficio Acquisti)</span>
-            </div>
-            <p class="step-details">
-                Se il bene/servizio è nuovo, il buyer emette una RfQ (Request for Quotation) a più fornitori per ricevere e comparare preventivi. Se il fornitore è già abituale, si procede direttamente alla conversione.
-            </p>
-            <div class="no-action">Azione gestita internamente al modulo Sourcing</div>
+        <div class="flow-arrow">➡️</div>
+
+        <div class="flow-card">
+            <div class="card-icon">🔍</div>
+            <h3 class="card-title">3. Sourcing</h3>
+            <p class="card-actor">Buyer / Acquisti</p>
+            <span class="badge-info">Processo Interno</span>
         </div>
 
-        <div class="flow-step">
-            <div class="step-number">4</div>
-            <div class="step-header">
-                <div>
-                    <h3 class="step-title">Creazione dell'Ordine di Acquisto (OdA)</h3>
-                </div>
-                <span class="step-actor">Buyer (Ufficio Acquisti)</span>
-            </div>
-            <p class="step-details">
-                La RdA approvata viene convertita in un Ordine di Acquisto formale (Purchase Order - PO) nel sistema ERP, definendo i dettagli legali, commerciali, prezzi, Incoterms e termini di pagamento.
-            </p>
-            <div style="margin-top: 15px;">
-                <button type="button" class="btn-erp" onclick="inviaMessaggioNavigazione('/home/workArea/purchaseRequestsBuy/1')">
-                    Converte RDA in Ordine
-                </button>
-            </div>
+        <div class="flow-arrow">➡️</div>
+
+        <div class="flow-card">
+            <div class="card-icon">🛒</div>
+            <h3 class="card-title">4. Creazione OdA</h3>
+            <p class="card-actor">Buyer / Acquisti</p>
+            <button type="button" class="btn-erp" onclick="inviaMessaggioNavigazione('/home/workArea/purchaseRequestsBuy/1')">
+                Converti in Ordine
+            </button>
         </div>
 
-        <div class="flow-step">
-            <div class="step-number">5</div>
-            <div class="step-header">
-                <div>
-                    <h3 class="step-title">Approvazione dell'Ordine (OdA)</h3>
-                </div>
-                <span class="step-actor">Direttore Acquisti / Management</span>
-            </div>
-            <p class="step-details">
-                L'ordine formale subisce un secondo livello di controllo interno per garantire che i prezzi e le condizioni inserite dal buyer siano corretti e congrui con le autorizzazioni di spesa.
-            </p>
-            <div class="no-action">Controllo tramite Workflow Approvativo Ordini</div>
+        <div class="flow-arrow">➡️</div>
+
+        <div class="flow-card">
+            <div class="card-icon">👔</div>
+            <h3 class="card-title">5. Autorizzazione</h3>
+            <p class="card-actor">Direzione Acquisti</p>
+            <span class="badge-info">Workflow</span>
         </div>
 
-        <div class="flow-step">
-            <div class="step-number">6</div>
-            <div class="step-header">
-                <div>
-                    <h3 class="step-title">Invio dell'Ordine al Fornitore</h3>
-                </div>
-                <span class="step-actor">Sistema ERP / Buyer</span>
-            </div>
-            <p class="step-details">
-                L'ordine approvato viene ufficialmente trasmesso al fornitore selezionato tramite i canali configurati:
-                <ul>
-                    <li><strong>EDI:</strong> Invio automatico tra gestionali.</li>
-                    <li><strong>Portale Fornitori:</strong> Caricamento su piattaforma web dedicata.</li>
-                    <li><strong>Email:</strong> Invio automatico del documento in formato PDF.</li>
-                </ul>
-            </p>
-            <div class="no-action">Flusso automatizzato al rilascio dell'OdA</div>
+        <div class="flow-arrow">➡️</div>
+
+        <div class="flow-card">
+            <div class="card-icon">🚀</div>
+            <h3 class="card-title">6. Invio Ordine</h3>
+            <p class="card-actor">Sistema ERP / EDI</p>
+            <span class="badge-info">Automatico</span>
         </div>
 
     </div>
@@ -243,7 +203,7 @@
     <script>
     function inviaMessaggioNavigazione(percorsoTarget) {
         
-        // Costruzione del payload con il percorso relativo richiesto
+        // Struttura del payload standard per il router dell'ERP
         const payload = {
             type: 'ROUTER_NAVIGATION',
             action: 'navigate',
@@ -254,14 +214,15 @@
         console.log("Invio comando via postMessage per il percorso: " + percorsoTarget);
 
         try {
-            // Invia l'oggetto nativo al parent
+            // Invio al sistema nativo dell'applicazione Padre (Parent)
             window.parent.postMessage(payload, '*');
-            // Invia anche come stringa JSON per sicurezza
+            
+            // Invio fallback sotto forma di stringa JSON per compatibilità
             window.parent.postMessage(JSON.stringify(payload), '*');
             
-            console.log("Messaggio inviato al parent senza blocchi di sicurezza.");
+            console.log("Messaggio inviato correttamente al sistema ERP.");
         } catch (e) {
-            console.error("Errore nell'invio del postMessage:", e);
+            console.error("Errore durante l'esecuzione del postMessage:", e);
         }
     }
     </script>
