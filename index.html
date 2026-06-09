@@ -16,7 +16,7 @@
         h1 {
             text-align: center;
             color: #2f4050;
-            font-size: 32px;
+            font-size: 42px; /* Dimensione aumentata */
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 40px;
@@ -164,9 +164,11 @@
 
         <div class="flow-card">
             <div class="card-icon">🔍</div>
-            <h3 class="card-title">3. Sourcing</h3>
+            <h3 class="card-title">3. Supplier</h3>
             <p class="card-actor">Buyer / Acquisti</p>
-            <span class="badge-info">Processo Interno</span>
+            <button type="button" class="btn-erp" onclick="inviaMessaggioNavigazione('https://diapdemo.formula.it:8282/due/#/home/workArea/subjectListAnid/1')">
+                Gestisci Fornitori
+            </button>
         </div>
 
         <div class="flow-arrow">➡️</div>
@@ -175,7 +177,7 @@
             <div class="card-icon">🛒</div>
             <h3 class="card-title">4. Creazione OdA</h3>
             <p class="card-actor">Buyer / Acquisti</p>
-            <button type="button" class="btn-erp" onclick="inviaMessaggioNavigazione('/home/workArea/purchaseRequestsBuy/1')">
+            <button type="button" class="btn-erp" onclick="inviaMessaggioNavigazione('https://diapdemo.formula.it:8282/due/#/home/workArea/purchaseOrders/1')">
                 Converti in Ordine
             </button>
         </div>
@@ -203,12 +205,18 @@
     <script>
     function inviaMessaggioNavigazione(percorsoTarget) {
         
+        // Se viene passato un URL completo con l'hash, estraiamo la rotta interna per sicurezza del router ERP
+        let routePath = percorsoTarget;
+        if (percorsoTarget.includes('#')) {
+            routePath = percorsoTarget.split('#')[1];
+        }
+
         // Struttura del payload standard per il router dell'ERP
         const payload = {
             type: 'ROUTER_NAVIGATION',
             action: 'navigate',
             url: percorsoTarget,
-            route: percorsoTarget
+            route: routePath
         };
 
         console.log("Invio comando via postMessage per il percorso: " + percorsoTarget);
