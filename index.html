@@ -22,32 +22,18 @@
 </head>
 <body>
 
-    <button type="button" class="btn-erp" onclick="inviaMessaggioNavigazione()">
+    <button type="button" class="btn-erp" onclick="navigaStessoDominio()">
         Apri Ordine Cliente #1
     </button>
 
     <script>
-    function inviaMessaggioNavigazione() {
-        const percorsoTarget = "/home/workArea/salesOrder/1";
-        
-        const payload = {
-            type: 'ROUTER_NAVIGATION',
-            action: 'navigate',
-            url: percorsoTarget,
-            route: percorsoTarget
-        };
-
-        console.log("Invio comando via postMessage...");
-
+    function navigaStessoDominio() {
         try {
-            // Invia l'oggetto nativo
-            window.parent.postMessage(payload, '*');
-            // Invia come stringa JSON (per compatibilità con vecchi ricevitori)
-            window.parent.postMessage(JSON.stringify(payload), '*');
-            
-            console.log("Messaggio inviato al parent senza blocchi di sicurezza.");
+            // Funziona istantaneamente SOLO se la pagina è ospitata sul server dell'ERP
+            window.parent.location.hash = "#/home/workArea/salesOrder/1";
+            console.log("Navigazione forzata con successo.");
         } catch (e) {
-            console.error("Errore nell'invio:", e);
+            console.error("Errore. Se vedi ancora SecurityError, significa che la pagina non è sullo stesso server dell'ERP:", e);
         }
     }
     </script>
