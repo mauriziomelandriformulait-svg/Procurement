@@ -23,10 +23,10 @@
             overflow-x: hidden;
         }
 
-        /* Banner unico e unificato Giallo Pantone per tutto il flusso */
+        /* Banner unico e unificato Giallo Pantone - Larghezza ridotta per allinearsi a "Invio Ordine" */
         .procurement-banner-unified {
             background-color: #FED100;
-            max-width: 1300px;
+            max-width: 1075px;
             padding: 12px 20px;
             border-radius: 6px 6px 0 0;
             box-sizing: border-box;
@@ -51,12 +51,12 @@
             gap: 10px;
         }
 
-        /* Container del flusso orizzontale allineato a sinistra */
+        /* Container del flusso orizzontale - Larghezza impostata a 1075px */
         .horizontal-flow {
             display: flex;
             align-items: flex-end;
             justify-content: flex-start;
-            max-width: 1300px;
+            max-width: 1075px;
             margin: 0 0 30px 0;
             padding: 30px 20px;
             background: #ffffff;
@@ -64,6 +64,7 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
             overflow-x: auto;
             gap: 15px;
+            box-sizing: border-box;
         }
 
         /* Contenitore per lo step centrale singolo */
@@ -165,13 +166,14 @@
             background-color: #18a689;
         }
 
-        /* Sezione Inferiore (Overview & Grafico) allineata a sinistra */
+        /* Sezione Inferiore - Larghezza impostata a 1075px per finire esattamente sotto l'ultimo step */
         .bottom-container {
-            max-width: 1300px;
+            max-width: 1075px;
             margin: 0 0 40px 0;
             display: flex;
             gap: 20px;
             align-items: stretch;
+            box-sizing: border-box;
         }
 
         .overview-box {
@@ -201,7 +203,7 @@
             display: inline-flex;
             align-items: center;
             gap: 12px;
-            width: 80%;
+            width: 85%;
             justify-content: center;
         }
 
@@ -408,10 +410,12 @@
             }
             .bottom-container {
                 flex-direction: column;
+                max-width: 100%;
             }
             .horizontal-flow {
                 flex-direction: column;
                 align-items: flex-start;
+                max-width: 100%;
             }
             .procurement-group, .ordine-group {
                 flex-direction: column;
@@ -427,6 +431,9 @@
             .widget-item {
                 width: 100%;
                 height: 130px;
+            }
+            .procurement-banner-unified {
+                max-width: 100%;
             }
         }
     </style>
@@ -564,7 +571,6 @@
 </div>
 
     <script>
-    // Questa funzione è ora utilizzata correttamente solo ed esclusivamente per i percorsi interni dell'ERP
     function inviaMessaggioNavigazione(percorsoTarget) {
         
         let routePath = percorsoTarget;
