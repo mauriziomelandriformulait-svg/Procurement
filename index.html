@@ -39,20 +39,10 @@
         .mini-bar-chart { display: flex; justify-content: space-around; align-items: flex-end; width: 100%; height: 90px; gap: 4px; }
         .mini-col-link { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; text-decoration: none; cursor: pointer; }
         .m-bar { 
-            width: 100%; 
-            min-height: 5px; 
-            border-radius: 2px 2px 0 0; 
-            animation: growBar 1.2s ease-out forwards; 
-            transition: transform 0.2s, filter 0.2s;
+            width: 100%; min-height: 5px; border-radius: 2px 2px 0 0; 
+            animation: growBar 1.2s ease-out forwards; transition: transform 0.2s, filter 0.2s;
         }
-        /* Ritardo sequenziale */
-        .mini-col-link:nth-child(1) .m-bar { animation-delay: 0.1s; }
-        .mini-col-link:nth-child(2) .m-bar { animation-delay: 0.3s; }
-        .mini-col-link:nth-child(3) .m-bar { animation-delay: 0.5s; }
-        .mini-col-link:nth-child(4) .m-bar { animation-delay: 0.7s; }
-        
         .mini-col-link:hover .m-bar { transform: scaleY(1.05); filter: brightness(1.15); }
-        
         .col-lbl { font-size: 8px; font-weight: 600; color: #a7b1c2; margin-top: 4px; }
         .bg-anticipo { background-color: #1c84c6; } .bg-tempi { background-color: #1ab394; } .bg-rischio { background-color: #f8ac59; } .bg-ritardo { background-color: #ed5565; }
         
@@ -61,6 +51,7 @@
         .gauge-needle { width: 4px; height: 45px; background: #2f4050; position: absolute; bottom: 0; left: 48px; transform-origin: bottom center; transform: rotate(45deg); }
         .gauge-value { font-size: 16px; font-weight: bold; margin-top: 5px; }
         
+        .counter-container { display: flex; flex-direction: column; align-items: center; justify-content: center; flex-grow: 1; }
         .counter-number-link { font-size: 38px; font-weight: 800; color: #ed5565; text-decoration: none; cursor: pointer; }
     </style>
 </head>
@@ -75,14 +66,14 @@
                 <div class="card-icon">📝</div>
                 <h3 class="card-title">1. Emissione RdA</h3>
                 <p class="card-actor">Utente Richiedente</p>
-                <button class="btn-erp">Crea RDA</button>
+                <button type="button" class="btn-erp" onclick="inviaMessaggioNavigazione('/home/workArea/purchaseRequestsAppl/1')">Crea RDA</button>
             </div>
             <div class="flow-arrow">➡️</div>
             <div class="flow-card">
                 <div class="card-icon">✅</div>
                 <h3 class="card-title">2. Approvazione</h3>
                 <p class="card-actor">Responsabile / Budget</p>
-                <button class="btn-erp">Approva RdA</button>
+                <button type="button" class="btn-erp" onclick="inviaMessaggioNavigazione('https://diapdemo.formula.it:8282/due/#/home/desktop/MT%20-%20TODOLIST')">Approva RdA</button>
             </div>
         </div>
         <div class="flow-arrow">➡️</div>
@@ -91,7 +82,7 @@
                 <div class="card-icon">🛒</div>
                 <h3 class="card-title">3. Creazione OdA</h3>
                 <p class="card-actor">Buyer / Acquisti</p>
-                <button class="btn-erp">Converti in Ordine</button>
+                <button type="button" class="btn-erp" onclick="inviaMessaggioNavigazione('https://diapdemo.formula.it:8282/due/#/home/workArea/purchaseOrders/1')">Converti in Ordine</button>
             </div>
         </div>
         <div class="flow-arrow">➡️</div>
@@ -114,17 +105,17 @@
 
     <div class="bottom-container">
         <div class="overview-box">
-            <a href="#" class="btn-powerbi">📊 Overview Supplier</a>
+            <a href="https://app.powerbi.com/Redirect?action=OpenReport&appId=67590226-b26e-469d-829c-2df580e3f619&reportObjectId=47377006-42ae-495c-abbc-99d48c877e90&ctid=ba941aaf-4ef6-4eae-8cee-441f432b943a&reportPage=ReportSectionf766317e5704274c3a27&pbi_source=appShareLink&portalSessionId=c29f5845-65ad-4af0-8996-894551d5a592" target="_blank" class="btn-powerbi">📊 Overview Supplier</a>
         </div>
         <div class="chart-box">
             <div class="dashboard-widgets">
                 <div class="widget-item">
                     <div class="widget-title">Overview acquisti</div>
                     <div class="mini-bar-chart">
-                        <a class="mini-col-link"><div class="m-bar bg-anticipo" style="height: 40%;"></div><div class="col-lbl">Anticipo</div></a>
-                        <a class="mini-col-link"><div class="m-bar bg-tempi" style="height: 85%;"></div><div class="col-lbl">Nei Tempi</div></a>
-                        <a class="mini-col-link"><div class="m-bar bg-rischio" style="height: 25%;"></div><div class="col-lbl">A Rischio</div></a>
-                        <a class="mini-col-link"><div class="m-bar bg-ritardo" style="height: 55%;"></div><div class="col-lbl">Ritardo</div></a>
+                        <a class="mini-col-link" target="_blank" href="#"><div class="m-bar bg-anticipo" style="height: 40%;"></div><div class="col-lbl">Anticipo</div></a>
+                        <a class="mini-col-link" target="_blank" href="#"><div class="m-bar bg-tempi" style="height: 85%;"></div><div class="col-lbl">Nei Tempi</div></a>
+                        <a class="mini-col-link" target="_blank" href="#"><div class="m-bar bg-rischio" style="height: 25%;"></div><div class="col-lbl">A Rischio</div></a>
+                        <a class="mini-col-link" target="_blank" href="#"><div class="m-bar bg-ritardo" style="height: 55%;"></div><div class="col-lbl">Ritardo</div></a>
                     </div>
                 </div>
                 <div class="widget-item">
@@ -134,12 +125,35 @@
                 </div>
                 <div class="widget-item">
                     <div class="widget-title">Ordini da Sollecitare</div>
-                    <div class="counter-number-link">27</div>
+                    <div class="counter-container">
+                        <a class="counter-number-link" onclick="inviaMessaggioNavigazione('https://diapdemo.formula.it:8282/due/#/home/workArea/dnow2/SKSD/1')">27</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    function inviaMessaggioNavigazione(percorsoTarget) {
+        let routePath = percorsoTarget;
+        if (percorsoTarget.includes('#')) {
+            routePath = percorsoTarget.split('#')[1];
+        }
+        const payload = {
+            type: 'ROUTER_NAVIGATION',
+            action: 'navigate',
+            url: percorsoTarget,
+            route: routePath
+        };
+        try {
+            window.parent.postMessage(payload, '*');
+            window.parent.postMessage(JSON.stringify(payload), '*');
+        } catch (e) {
+            console.error("Errore:", e);
+        }
+    }
+</script>
 
 </body>
 </html>
