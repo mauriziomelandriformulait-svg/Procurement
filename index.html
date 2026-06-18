@@ -47,10 +47,10 @@
         .m-bar { width: 100%; border-radius: 2px 2px 0 0; }
         .bg-anticipo { background-color: #1c84c6; } .bg-tempi { background-color: #1ab394; } .bg-ritardo { background-color: #ed5565; }
         
-        .gauge-container { position: relative; width: 80px; height: 40px; overflow: hidden; margin-top: 5px; }
+        .gauge-container { position: relative; width: 80px; height: 40px; overflow: hidden; margin-top: 5px; cursor: pointer; }
         .gauge-body { width: 80px; height: 80px; border-radius: 50%; border: 12px solid #e2e8f0; border-bottom-color: #FF0000; border-left-color: #1ab394; border-top-color: #f8ac59; position: absolute; box-sizing: border-box; }
         .gauge-needle { width: 4px; height: 35px; background: #2f4050; position: absolute; bottom: 0; left: 38px; transform-origin: bottom center; transform: rotate(45deg); border-radius: 2px; }
-        .gauge-label { font-size: 14px; font-weight: 800; color: #ed5565; margin-top: 2px; }
+        .gauge-label { font-size: 14px; font-weight: 800; color: #ed5565; margin-top: 2px; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -120,11 +120,11 @@
                 </div>
                 <div class="widget-item">
                     <div class="widget-title">Ordini da Sollecitare</div>
-                    <div class="gauge-container">
+                    <div class="gauge-container" onclick="inviaMessaggioNavigazione('https://diapdemo.formula.it:8282/due/#/home/workArea/dnow2/SKSD/1')">
                         <div class="gauge-body"></div>
                         <div class="gauge-needle"></div>
                     </div>
-                    <div class="gauge-label">27k</div>
+                    <div class="gauge-label" onclick="inviaMessaggioNavigazione('https://diapdemo.formula.it:8282/due/#/home/workArea/dnow2/SKSD/1')">27k</div>
                 </div>
             </div>
         </div>
