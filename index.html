@@ -48,17 +48,7 @@
         .bg-anticipo { background-color: #1c84c6; } .bg-tempi { background-color: #1ab394; } .bg-ritardo { background-color: #ed5565; }
         
         .gauge-container { position: relative; width: 80px; height: 40px; overflow: hidden; margin-top: 5px; }
-        .gauge-body { 
-            width: 80px; 
-            height: 80px; 
-            border-radius: 50%; 
-            border: 12px solid #e2e8f0; 
-            border-bottom-color: #FF0000;
-            border-left-color: #1ab394; 
-            border-top-color: #f8ac59; 
-            position: absolute; 
-            box-sizing: border-box; 
-        }
+        .gauge-body { width: 80px; height: 80px; border-radius: 50%; border: 12px solid #e2e8f0; border-bottom-color: #FF0000; border-left-color: #1ab394; border-top-color: #f8ac59; position: absolute; box-sizing: border-box; }
         .gauge-needle { width: 4px; height: 35px; background: #2f4050; position: absolute; bottom: 0; left: 38px; transform-origin: bottom center; transform: rotate(45deg); border-radius: 2px; }
         .gauge-label { font-size: 14px; font-weight: 800; color: #ed5565; margin-top: 2px; }
     </style>
@@ -73,13 +63,13 @@
             <div class="flow-card">
                 <div class="card-icon">📝</div>
                 <h3 class="card-title">1. Emissione RdA</h3>
-                <button type="button" class="btn-erp" onclick="window.location.href='https://diapdemo.formula.it:8282/due/#/home/workArea/purchaseRequestsAppl/1'">Crea RDA</button>
+                <a href="https://diapdemo.formula.it:8282/due/#/home/workArea/purchaseRequestsAppl/1" class="btn-erp">Crea RDA</a>
             </div>
             <div class="flow-arrow">➡️</div>
             <div class="flow-card">
                 <div class="card-icon">✅</div>
-                <h3 class="card-title">2. Approvazione</h3>
-                <button type="button" class="btn-erp" onclick="window.location.href='https://diapdemo.formula.it:8282/due/#/home/desktop/MT%20-%20TODOLIST'">Approva</button>
+                <h3 class="card-title">2. Approva RDA</h3>
+                <a href="https://diapdemo.formula.it:8282/due/#/home/desktop/MT%20-%20TODOLIST" class="btn-erp">Approva</a>
             </div>
         </div>
         
@@ -88,7 +78,7 @@
         <div class="flow-card">
             <div class="card-icon">🛒</div>
             <h3 class="card-title">3. RdA > OdA</h3>
-            <button type="button" class="btn-erp" onclick="window.location.href='https://diapdemo.formula.it:8282/due/#/home/desktop/CP-Ufficio%20Acquisti'">Converti</button>
+            <a href="https://diapdemo.formula.it:8282/due/#/home/desktop/CP-Ufficio%20Acquisti" class="btn-erp">Converti</a>
         </div>
         
         <div class="flow-arrow">➡️</div>
@@ -97,7 +87,7 @@
             <div class="flow-card">
                 <div class="card-icon">⚙️</div>
                 <h3 class="card-title">4. Gestione OdA</h3>
-                <button type="button" class="btn-erp" onclick="window.location.href='https://diapdemo.formula.it:8282/due/#/home/workArea/purchaseOrders/1'">Gestisci</button>
+                <a href="https://diapdemo.formula.it:8282/due/#/home/workArea/purchaseOrders/1" class="btn-erp">Gestisci</a>
             </div>
             <div class="flow-arrow">➡️</div>
             <div class="flow-card">
@@ -109,7 +99,7 @@
             <div class="flow-card">
                 <div class="card-icon">🚀</div>
                 <h3 class="card-title">6. Invio</h3>
-                <a href="mailto:?subject=Ordine" class="btn-erp" style="text-decoration:none; display:inline-block; padding: 6px 10px; margin-top:5px; text-align:center;">Mail</a>
+                <a href="mailto:?subject=Ordine" class="btn-erp">Mail</a>
             </div>
         </div>
     </div>
