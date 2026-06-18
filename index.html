@@ -31,7 +31,7 @@
         .card-icon { font-size: 28px; margin-bottom: 5px; }
         .card-title { font-size: 13px; font-weight: 700; color: #2f4050; margin: 5px 0; }
         .flow-arrow { font-size: 20px; color: #cbd5e1; }
-        .btn-erp { background-color: #1ab394; color: white; border: none; padding: 6px 10px; font-size: 10px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%; text-decoration: none; }
+        .btn-erp { background-color: #1ab394; color: white; border: none; padding: 6px 10px; font-size: 10px; font-weight: bold; border-radius: 4px; cursor: pointer; width: 100%; text-decoration: none; display: inline-block; text-align: center;}
         .badge-info { font-size: 10px; background-color: #e2e8f0; color: #4a5568; padding: 4px 8px; border-radius: 4px; font-weight: 600; margin-top: auto; cursor: pointer; }
 
         .bottom-container { width: 100%; display: flex; gap: 20px; align-items: stretch; }
@@ -53,7 +53,7 @@
             height: 80px; 
             border-radius: 50%; 
             border: 12px solid #e2e8f0; 
-            border-bottom-color: #FF0000; /* MODIFICATO: Rosso acceso */
+            border-bottom-color: #FF0000;
             border-left-color: #1ab394; 
             border-top-color: #f8ac59; 
             position: absolute; 
@@ -73,13 +73,13 @@
             <div class="flow-card">
                 <div class="card-icon">📝</div>
                 <h3 class="card-title">1. Emissione RdA</h3>
-                <button type="button" class="btn-erp" onclick="window.open('https://diapdemo.formula.it:8282/due/#/home/workArea/purchaseRequestsAppl/1', '_blank')">Crea RDA</button>
+                <button type="button" class="btn-erp" onclick="window.location.href='https://diapdemo.formula.it:8282/due/#/home/workArea/purchaseRequestsAppl/1'">Crea RDA</button>
             </div>
             <div class="flow-arrow">➡️</div>
             <div class="flow-card">
                 <div class="card-icon">✅</div>
                 <h3 class="card-title">2. Approvazione</h3>
-                <button type="button" class="btn-erp" onclick="window.open('https://diapdemo.formula.it:8282/due/#/home/desktop/MT%20-%20TODOLIST', '_blank')">Approva</button>
+                <button type="button" class="btn-erp" onclick="window.location.href='https://diapdemo.formula.it:8282/due/#/home/desktop/MT%20-%20TODOLIST'">Approva</button>
             </div>
         </div>
         
@@ -88,7 +88,7 @@
         <div class="flow-card">
             <div class="card-icon">🛒</div>
             <h3 class="card-title">3. RdA > OdA</h3>
-            <button type="button" class="btn-erp" onclick="window.open('https://diapdemo.formula.it:8282/due/#/home/desktop/CP-Ufficio%20Acquisti', '_blank')">Converti</button>
+            <button type="button" class="btn-erp" onclick="window.location.href='https://diapdemo.formula.it:8282/due/#/home/desktop/CP-Ufficio%20Acquisti'">Converti</button>
         </div>
         
         <div class="flow-arrow">➡️</div>
@@ -97,7 +97,7 @@
             <div class="flow-card">
                 <div class="card-icon">⚙️</div>
                 <h3 class="card-title">4. Gestione OdA</h3>
-                <button type="button" class="btn-erp" onclick="window.open('https://diapdemo.formula.it:8282/due/#/home/workArea/purchaseOrders/1', '_blank')">Gestisci</button>
+                <button type="button" class="btn-erp" onclick="window.location.href='https://diapdemo.formula.it:8282/due/#/home/workArea/purchaseOrders/1'">Gestisci</button>
             </div>
             <div class="flow-arrow">➡️</div>
             <div class="flow-card">
