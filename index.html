@@ -34,7 +34,6 @@
         
         .badge-info { font-size: 10px; background-color: #e2e8f0; color: #4a5568; padding: 4px 8px; border-radius: 4px; font-weight: 600; margin-top: auto; cursor: pointer; }
 
-        /* Contenitore inferiore ripristinato */
         .bottom-container { width: 100%; display: flex; gap: 20px; align-items: stretch; }
         .overview-box { flex: 1; background: #ffffff; border-radius: 8px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center; }
         .btn-powerbi { background-color: #f2c811; color: #2f4050; padding: 15px 25px; font-size: 16px; font-weight: bold; border-radius: 8px; text-decoration: none; display: flex; align-items: center; gap: 10px; }
@@ -79,7 +78,7 @@
         <div class="flow-card">
             <div class="card-icon">🛒</div>
             <h3 class="card-title">3. RdA > OdA</h3>
-            <button class="btn-erp" onclick="inviaMessaggioNavigazione('https://diapdemo.formula.it:8282/due/#/home/desktop/CP-Ufficio%20Acquisti')">Converti</button>
+            <button class="btn-erp" onclick="window.location.href='https://diapdemo.formula.it:8282/due/#/home/workArea/purchaseRequestsBuy/1'">Converti</button>
         </div>
         
         <div class="flow-arrow">➡️</div>
@@ -100,7 +99,7 @@
             <div class="flow-card">
                 <div class="card-icon">🚀</div>
                 <h3 class="card-title">6. Invio</h3>
-                <a href="mailto:?subject=Ordine" class="btn-erp" style="text-decoration:none; display:inline-block; line-height:2.5;">Mail</a>
+                <a href="mailto:?subject=Invio Ordine" target="_blank" class="btn-erp" style="text-decoration:none; display:inline-block; line-height:2.5;">Mail</a>
             </div>
         </div>
     </div>
