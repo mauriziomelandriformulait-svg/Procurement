@@ -12,17 +12,10 @@
         .procurement-banner-unified h2 { color: #000000; font-size: 21.6px; text-transform: uppercase; letter-spacing: 1px; margin: 0; }
 
         .horizontal-flow { 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            width: 100%; 
-            margin-bottom: 20px; 
-            padding: 20px; 
-            background: #ffffff; 
-            border-radius: 0 0 8px 8px; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
-            box-sizing: border-box; 
-            gap: 10px; 
+            display: flex; align-items: center; justify-content: space-between; 
+            width: 100%; margin-bottom: 20px; padding: 20px; background: #ffffff; 
+            border-radius: 0 0 8px 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+            box-sizing: border-box; gap: 10px; 
         }
         
         .procurement-group, .ordine-group { display: flex; align-items: center; gap: 10px; }
@@ -33,22 +26,15 @@
         .flow-arrow { font-size: 20px; color: #cbd5e1; }
         
         .btn-erp { 
-            background-color: #1ab394; 
-            color: white; 
-            border: none; 
-            padding: 6px 10px; 
-            font-size: 10px; 
-            font-weight: bold; 
-            border-radius: 4px; 
-            text-decoration: none; 
-            display: block; 
-            width: 100%; 
-            box-sizing: border-box;
-            text-align: center;
+            background-color: #1ab394; color: white; border: none; padding: 6px 10px; 
+            font-size: 10px; font-weight: bold; border-radius: 4px; cursor: pointer;
+            width: 100%; box-sizing: border-box; text-align: center;
         }
+        .btn-erp:hover { background-color: #15987d; }
         
         .badge-info { font-size: 10px; background-color: #e2e8f0; color: #4a5568; padding: 4px 8px; border-radius: 4px; font-weight: 600; margin-top: auto; cursor: pointer; }
 
+        /* Contenitore inferiore ripristinato */
         .bottom-container { width: 100%; display: flex; gap: 20px; align-items: stretch; }
         .overview-box { flex: 1; background: #ffffff; border-radius: 8px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center; }
         .btn-powerbi { background-color: #f2c811; color: #2f4050; padding: 15px 25px; font-size: 16px; font-weight: bold; border-radius: 8px; text-decoration: none; display: flex; align-items: center; gap: 10px; }
@@ -78,13 +64,13 @@
             <div class="flow-card">
                 <div class="card-icon">📝</div>
                 <h3 class="card-title">1. Emissione RdA</h3>
-                <a href="https://diapdemo.formula.it:8282/due/#/home/workArea/purchaseRequestsAppl/1" class="btn-erp">Crea RDA</a>
+                <button class="btn-erp" onclick="inviaMessaggioNavigazione('https://diapdemo.formula.it:8282/due/#/home/workArea/purchaseRequestsAppl/1')">Crea RDA</button>
             </div>
             <div class="flow-arrow">➡️</div>
             <div class="flow-card">
                 <div class="card-icon">✅</div>
                 <h3 class="card-title">2. Approva RDA</h3>
-                <a href="https://diapdemo.formula.it:8282/due/#/home/desktop/MT%20-%20TODOLIST" class="btn-erp">Approva</a>
+                <button class="btn-erp" onclick="inviaMessaggioNavigazione('https://diapdemo.formula.it:8282/due/#/home/desktop/MT%20-%20TODOLIST')">Approva</button>
             </div>
         </div>
         
@@ -93,7 +79,7 @@
         <div class="flow-card">
             <div class="card-icon">🛒</div>
             <h3 class="card-title">3. RdA > OdA</h3>
-            <a href="https://diapdemo.formula.it:8282/due/#/home/desktop/CP-Ufficio%20Acquisti" class="btn-erp">Converti</a>
+            <button class="btn-erp" onclick="inviaMessaggioNavigazione('https://diapdemo.formula.it:8282/due/#/home/desktop/CP-Ufficio%20Acquisti')">Converti</button>
         </div>
         
         <div class="flow-arrow">➡️</div>
@@ -102,7 +88,7 @@
             <div class="flow-card">
                 <div class="card-icon">⚙️</div>
                 <h3 class="card-title">4. Gestione OdA</h3>
-                <a href="https://diapdemo.formula.it:8282/due/#/home/workArea/purchaseOrders/1" class="btn-erp">Gestisci</a>
+                <button class="btn-erp" onclick="inviaMessaggioNavigazione('https://diapdemo.formula.it:8282/due/#/home/workArea/purchaseOrders/1')">Gestisci</button>
             </div>
             <div class="flow-arrow">➡️</div>
             <div class="flow-card">
@@ -114,7 +100,7 @@
             <div class="flow-card">
                 <div class="card-icon">🚀</div>
                 <h3 class="card-title">6. Invio</h3>
-                <a href="mailto:?subject=Ordine" class="btn-erp">Mail</a>
+                <a href="mailto:?subject=Ordine" class="btn-erp" style="text-decoration:none; display:inline-block; line-height:2.5;">Mail</a>
             </div>
         </div>
     </div>
@@ -147,6 +133,12 @@
 </div>
 
 <script>
+    function inviaMessaggioNavigazione(percorsoTarget) {
+        let routePath = percorsoTarget.includes('#') ? percorsoTarget.split('#')[1] : percorsoTarget;
+        const payload = { type: 'ROUTER_NAVIGATION', action: 'navigate', url: percorsoTarget, route: routePath };
+        window.parent.postMessage(payload, '*');
+    }
+
     function mostraAvviso() {
         alert("⚠️ Workflow documentale non attivo");
     }
